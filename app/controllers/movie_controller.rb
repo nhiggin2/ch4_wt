@@ -18,5 +18,19 @@ private
 
   def movie_params
     params.require(:movie).permit(:title, :rating, :description, :release_date)
+    
+    def new
+    @movie = Movie.new
+# default: render 'new' template
+    end
+    def create
+    params.require(:movie)
+    params[:movie].permit(:title,:rating,:release_date)
+    @movie = Movie.create!(movie_params) # new way
+    flash[:notice] = "#{@movie.title} was successfully created."
+    redirect_to movies_path
+
+    end
+    
   end
   
